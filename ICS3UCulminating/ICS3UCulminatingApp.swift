@@ -12,6 +12,7 @@ struct ICS3UCulminatingApp: App {
     var body: some Scene {
         WindowGroup {
             MainTabView()
+                .preferredColorScheme(.dark)
         }
     }
 }

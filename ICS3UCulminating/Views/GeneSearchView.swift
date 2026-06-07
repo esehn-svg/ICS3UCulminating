@@ -33,7 +33,7 @@ struct GeneSearchView: View {
     
     var categoryIcon: String {
         switch category {
-        case .gene: return "dna"
+        case .gene: return "link"
         case .protein: return "hexagon"
         case .function: return "gearshape"
         case .none: return ""
@@ -91,16 +91,18 @@ struct GeneSearchView: View {
                     VStack(spacing: 20) {
                         Image(systemName: categoryIcon)
                             .font(.system(size: 100))
-                            .foregroundColor(.accentColor)
-                        Text(categoryName)
+                            .foregroundColor(category.color)
+                        Text("Search a \(categoryName)")
                             .font(.largeTitle)
                             .fontWeight(.bold)
+                            .foregroundColor(category.color)
                     }
                     Spacer()
                 }
             }
             .navigationTitle(navigationTitle)
-            .searchable(text: searchText)
+            .tint(category.color)
+            .searchable(text: searchText, prompt: "Search a \(categoryName)")
             .onChange(of: searchText.wrappedValue) { oldValue, newValue in
                 if let suggestion = viewModel.checkForWrongCategory(searchText: newValue, currentCategory: category) {
                     suggestedCategory = suggestion

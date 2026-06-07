@@ -20,15 +20,15 @@ struct HomeView: View {
             ZStack {
                 // Background Glow
                 Circle()
-                    .fill(Color.accentColor.opacity(0.1))
+                    .fill(SearchCategory.gene.color.opacity(0.1))
                     .frame(width: 220, height: 220)
                 
                 // DNA Strand (angled)
-                Image(systemName: "dna")
+                Image(systemName: "link")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 120, height: 120)
-                    .foregroundColor(.accentColor.opacity(0.7))
+                    .foregroundColor(SearchCategory.gene.color.opacity(0.7))
                     .rotationEffect(.degrees(-15))
                 
                 // Magnifying Glass (offset and larger)
@@ -36,7 +36,7 @@ struct HomeView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 140, height: 140)
-                    .foregroundColor(.accentColor)
+                    .foregroundColor(SearchCategory.gene.color)
                     .fontWeight(.bold)
                     .offset(x: 20, y: 20)
             }
@@ -44,8 +44,8 @@ struct HomeView: View {
             
             Text("Select a search tab.")
                 .font(.title2)
-                .fontWeight(.medium)
-                .foregroundColor(.secondary)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
             
             Spacer()
             Spacer()

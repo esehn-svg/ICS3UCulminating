@@ -36,7 +36,8 @@ struct GeneDetailView: View {
                     title: "Gene",
                     content: gene.name,
                     description: gene.geneDescription,
-                    isHighlighted: category == .gene
+                    isHighlighted: category == .gene,
+                    highlightColor: SearchCategory.gene.color
                 )
                 
                 // Homologues (under Gene)
@@ -55,7 +56,7 @@ struct GeneDetailView: View {
                             HStack {
                                 Image(systemName: "circle.fill")
                                     .font(.system(size: 6))
-                                    .foregroundColor(.accentColor)
+                                    .foregroundColor(SearchCategory.gene.color)
                                 Text("**\(organism):** \(gene.homologues[organism] ?? "")")
                                     .font(.body)
                             }
@@ -72,7 +73,8 @@ struct GeneDetailView: View {
                     title: "Protein",
                     content: gene.protein,
                     description: gene.proteinDescription,
-                    isHighlighted: category == .protein
+                    isHighlighted: category == .protein,
+                    highlightColor: SearchCategory.protein.color
                 )
                 
                 Divider()
@@ -82,7 +84,8 @@ struct GeneDetailView: View {
                     title: "Function",
                     content: gene.function,
                     description: gene.functionDescription,
-                    isHighlighted: category == .function
+                    isHighlighted: category == .function,
+                    highlightColor: SearchCategory.function.color
                 )
                 
                 Spacer()
@@ -98,13 +101,14 @@ struct SectionView: View {
     let content: String
     let description: String
     let isHighlighted: Bool
+    let highlightColor: Color
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("\(title):")
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundColor(isHighlighted ? .accentColor : .primary)
+                .foregroundColor(isHighlighted ? highlightColor : .primary)
             
             Text(content)
                 .font(.headline)
