@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A87E657C2FD305E200756F9A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A87E657B2FD305E200756F9A /* HomeView.swift */; };
 		A8BB6E342FCF557500A1BAD2 /* ICS3UCulminatingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8BB6E332FCF557500A1BAD2 /* ICS3UCulminatingApp.swift */; };
 		A8BB6E362FCF557500A1BAD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8BB6E352FCF557500A1BAD2 /* Assets.xcassets */; };
 		A8BB6E432FCF557500A1BAD2 /* RELEASE.md in Resources */ = {isa = PBXBuildFile; fileRef = A8BB6E422FCF557500A1BAD2 /* RELEASE.md */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A87E657B2FD305E200756F9A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		A8BB6E302FCF557500A1BAD2 /* ICS3UCulminating.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ICS3UCulminating.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8BB6E332FCF557500A1BAD2 /* ICS3UCulminatingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICS3UCulminatingApp.swift; sourceTree = "<group>"; };
 		A8BB6E352FCF557500A1BAD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				A8BB6E4D2FCF646300A1BAD2 /* GeneDetailView.swift */,
 				A8BB6E4F2FCF646F00A1BAD2 /* GeneSearchView.swift */,
 				A8BB6E512FCF647C00A1BAD2 /* MainTabView.swift */,
+				A87E657B2FD305E200756F9A /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				A8BB6E522FCF647C00A1BAD2 /* MainTabView.swift in Sources */,
 				A8BB6E502FCF646F00A1BAD2 /* GeneSearchView.swift in Sources */,
 				A8BB6E4A2FCF5DE600A1BAD2 /* GeneListViewModel.swift in Sources */,
+				A87E657C2FD305E200756F9A /* HomeView.swift in Sources */,
 				A8BB6E482FCF5DE600A1BAD2 /* Gene.swift in Sources */,
 				A8BB6E342FCF557500A1BAD2 /* ICS3UCulminatingApp.swift in Sources */,
 			);

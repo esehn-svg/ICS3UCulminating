@@ -8,6 +8,7 @@
 import Foundation
 
 enum SearchCategory {
+    case none
     case gene
     case protein
     case function

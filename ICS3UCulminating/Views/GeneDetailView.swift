@@ -22,24 +22,68 @@ struct GeneDetailView: View {
             return gene.protein
         case .function:
             return gene.function
+        case .none:
+            return ""
         }
     }
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 25) {
                 
-                if category != .gene {
-                    SectionView(title: "Gene", content: gene.name)
-                }
+                // Gene Section
+                SectionView(
+                    title: "Gene",
+                    content: gene.name,
+                    description: gene.geneDescription,
+                    isHighlighted: category == .gene
+                )
                 
-                if category != .protein {
-                    SectionView(title: "Protein", content: gene.protein)
+                // Homologues (under Gene)
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Homologue Genes")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    
+                    if gene.homologues.isEmpty {
+                        Text("No homologues documented.")
+                            .font(.body)
+                            .foregroundColor(.secondary)
+                            .padding(.leading, 10)
+                    } else {
+                        ForEach(Array(gene.homologues.keys).sorted(), id: \.self) { organism in
+                            HStack {
+                                Image(systemName: "circle.fill")
+                                    .font(.system(size: 6))
+                                    .foregroundColor(.accentColor)
+                                Text("**\(organism):** \(gene.homologues[organism] ?? "")")
+                                    .font(.body)
+                            }
+                            .padding(.leading, 15)
+                        }
+                    }
                 }
+                .padding(.bottom, 5)
                 
-                if category != .function {
-                    SectionView(title: "Function", content: gene.function)
-                }
+                Divider()
+                
+                // Protein Section
+                SectionView(
+                    title: "Protein",
+                    content: gene.protein,
+                    description: gene.proteinDescription,
+                    isHighlighted: category == .protein
+                )
+                
+                Divider()
+                
+                // Function Section
+                SectionView(
+                    title: "Function",
+                    content: gene.function,
+                    description: gene.functionDescription,
+                    isHighlighted: category == .function
+                )
                 
                 Spacer()
             }
@@ -52,16 +96,26 @@ struct GeneDetailView: View {
 struct SectionView: View {
     let title: String
     let content: String
+    let description: String
+    let isHighlighted: Bool
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("\(title):")
                 .font(.title3)
                 .fontWeight(.bold)
+                .foregroundColor(isHighlighted ? .accentColor : .primary)
             
             Text(content)
-                .font(.body)
+                .font(.headline)
                 .padding(.leading, 10)
+            
+            Text(description)
+                .font(.body)
+                .foregroundColor(.secondary)
+                .padding(.leading, 10)
+                .padding(.top, 5)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
