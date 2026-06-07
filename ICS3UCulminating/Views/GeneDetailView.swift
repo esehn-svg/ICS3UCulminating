@@ -49,7 +49,7 @@ struct GeneDetailView: View {
                     if gene.homologues.isEmpty {
                         Text("No homologues documented.")
                             .font(.body)
-                            .foregroundColor(.secondary)
+                            .foregroundColor(.white)
                             .padding(.leading, 10)
                     } else {
                         ForEach(Array(gene.homologues.keys).sorted(), id: \.self) { organism in
@@ -59,6 +59,7 @@ struct GeneDetailView: View {
                                     .foregroundColor(SearchCategory.gene.color)
                                 Text("**\(organism):** \(gene.homologues[organism] ?? "")")
                                     .font(.body)
+                                    .foregroundColor(.white)
                             }
                             .padding(.leading, 15)
                         }
@@ -112,11 +113,12 @@ struct SectionView: View {
             
             Text(content)
                 .font(.headline)
+                .foregroundColor(.white)
                 .padding(.leading, 10)
             
             Text(description)
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.9))
                 .padding(.leading, 10)
                 .padding(.top, 5)
                 .fixedSize(horizontal: false, vertical: true)

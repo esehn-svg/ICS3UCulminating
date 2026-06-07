@@ -16,13 +16,13 @@ enum SearchCategory {
     var color: Color {
         switch self {
         case .gene:
-            return Color(red: 0.0, green: 0.5, blue: 0.5) // Darker Cyan / Teal
+            return Color(red: 0.0, green: 0.8, blue: 0.8) // Lighter/Brighter Teal
         case .protein:
-            return Color(red: 1.0, green: 0.4, blue: 0.4) // Neon Coral
+            return Color(red: 0.0, green: 0.8, blue: 0.5) // Bright Blue/Teal-Green mix
         case .function:
             return Color(red: 0.2, green: 0.8, blue: 0.2) // Emerald Green
         case .none:
-            return .accentColor
+            return .white
         }
     }
 }

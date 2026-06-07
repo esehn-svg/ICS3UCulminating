@@ -137,22 +137,25 @@ struct GeneRowView: View {
             case .gene:
                 Text(gene.name)
                     .font(.headline)
+                    .foregroundColor(.white)
                 Text(gene.protein)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.8))
             case .protein:
                 Text(gene.protein)
                     .font(.headline)
+                    .foregroundColor(.white)
                 Text(gene.name)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.8))
             case .function:
                 Text(gene.function)
                     .font(.headline)
                     .lineLimit(1)
+                    .foregroundColor(.white)
                 Text(gene.name)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white.opacity(0.8))
             case .none:
                 EmptyView()
             }

@@ -22,21 +22,28 @@ struct WelcomeView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                Text("Welcome to IdentiGene")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundColor(SearchCategory.gene.color)
-                    .multilineTextAlignment(.center)
+                // Welcome to IdentiGene
+                HStack(spacing: 0) {
+                    Text("Welcome to ")
+                        .foregroundColor(.white)
+                    Text("Identi")
+                        .foregroundColor(SearchCategory.gene.color)
+                    Text("Gene")
+                        .foregroundColor(SearchCategory.function.color)
+                }
+                .font(.system(size: 40, weight: .bold))
+                .multilineTextAlignment(.center)
                 
                 Text("Trace the Blueprint of Life.")
                     .font(.title3)
                     .fontWeight(.medium)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
                 Text("Click anywhere to begin.")
                     .font(.footnote)
-                    .foregroundColor(.secondary.opacity(0.7))
+                    .foregroundColor(.white.opacity(0.8))
                     .padding(.bottom, 40)
             }
             .padding()
