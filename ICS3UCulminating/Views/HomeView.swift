@@ -10,45 +10,46 @@ import SwiftUI
 struct HomeView: View {
     
     // MARK: - Stored properties
+    @State private var showingFavorites = false
     
     // MARK: - Computed properties
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            
-            // Logo: Magnifying glass and DNA strand
-            ZStack {
-                // Background Glow
-                Circle()
-                    .fill(SearchCategory.gene.color.opacity(0.1))
-                    .frame(width: 220, height: 220)
+        NavigationStack {
+            VStack(spacing: 20) {
+                Spacer()
                 
-                // DNA Strand (angled)
-                Image(systemName: "link")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 120, height: 120)
-                    .foregroundColor(SearchCategory.gene.color.opacity(0.7))
-                    .rotationEffect(.degrees(-15))
+                // Logo: Large centered magnifying glass
+                VStack(spacing: 20) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 100))
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                    
+                    Text("Select a search tab.")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                }
+                .padding(.bottom, 30)
                 
-                // Magnifying Glass (offset and larger)
-                Image(systemName: "magnifyingglass")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 140, height: 140)
-                    .foregroundColor(SearchCategory.gene.color)
-                    .fontWeight(.bold)
-                    .offset(x: 20, y: 20)
+                Spacer()
+                Spacer()
             }
-            .padding(.bottom, 30)
-            
-            Text("Select a search tab.")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
-            
-            Spacer()
-            Spacer()
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingFavorites = true
+                    } label: {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 14))
+                            .fontWeight(.bold)
+                    }
+                    .tint(.white)
+                }
+            }
+            .sheet(isPresented: $showingFavorites) {
+                FavoritesView()
+            }
         }
     }
 }

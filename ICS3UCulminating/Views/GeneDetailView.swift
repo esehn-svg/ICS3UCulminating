@@ -36,7 +36,6 @@ struct GeneDetailView: View {
                     title: "Gene",
                     content: gene.name,
                     description: gene.geneDescription,
-                    isHighlighted: category == .gene,
                     highlightColor: SearchCategory.gene.color
                 )
                 
@@ -45,6 +44,7 @@ struct GeneDetailView: View {
                     Text("Homologue Genes")
                         .font(.title3)
                         .fontWeight(.bold)
+                        .foregroundColor(SearchCategory.gene.color)
                     
                     if gene.homologues.isEmpty {
                         Text("No homologues documented.")
@@ -74,7 +74,6 @@ struct GeneDetailView: View {
                     title: "Protein",
                     content: gene.protein,
                     description: gene.proteinDescription,
-                    isHighlighted: category == .protein,
                     highlightColor: SearchCategory.protein.color
                 )
                 
@@ -85,7 +84,6 @@ struct GeneDetailView: View {
                     title: "Function",
                     content: gene.function,
                     description: gene.functionDescription,
-                    isHighlighted: category == .function,
                     highlightColor: SearchCategory.function.color
                 )
                 
@@ -101,7 +99,6 @@ struct SectionView: View {
     let title: String
     let content: String
     let description: String
-    let isHighlighted: Bool
     let highlightColor: Color
     
     var body: some View {
@@ -109,11 +106,11 @@ struct SectionView: View {
             Text("\(title):")
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundColor(isHighlighted ? highlightColor : .primary)
+                .foregroundColor(highlightColor)
             
             Text(content)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(highlightColor.opacity(0.9))
                 .padding(.leading, 10)
             
             Text(description)

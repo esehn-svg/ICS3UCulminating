@@ -32,7 +32,6 @@ struct MainTabView: View {
                     .tag(SearchCategory.none)
                 
                 // Gene Tab
-                GeneSearchView(viewModel: viewModel, category: .gene)
                     .tabItem {
                         Label("Gene", systemImage: "link")
                     }
@@ -40,7 +39,6 @@ struct MainTabView: View {
                     .tint(SearchCategory.gene.color)
                 
                 // Protein Tab
-                GeneSearchView(viewModel: viewModel, category: .protein)
                     .tabItem {
                         Label("Protein", systemImage: "hexagon")
                     }
@@ -48,7 +46,6 @@ struct MainTabView: View {
                     .tint(SearchCategory.protein.color)
                 
                 // Function Tab
-                GeneSearchView(viewModel: viewModel, category: .function)
                     .tabItem {
                         Label("Function", systemImage: "gearshape")
                     }

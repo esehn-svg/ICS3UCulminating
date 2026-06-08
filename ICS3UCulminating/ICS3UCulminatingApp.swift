@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ICS3UCulminatingApp: App {
@@ -13,6 +14,7 @@ struct ICS3UCulminatingApp: App {
         WindowGroup {
             MainTabView()
                 .preferredColorScheme(.dark)
+                .modelContainer(for: Favorite.self)
         }
     }
 }

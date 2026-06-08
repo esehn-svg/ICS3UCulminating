@@ -13,9 +13,13 @@ struct GeneSearchView: View {
     @Bindable var viewModel: GeneListViewModel
     let category: SearchCategory
     
+    @Environment(\.modelContext) private var modelContext
+    @Query private var favorites: [Favorite]
+    
     @Environment(\.isSearching) private var isSearching
     @State private var showingWrongCategoryAlert = false
     @State private var suggestedCategory: SearchCategory = .none
+    @State private var showingFavorites = false
     
     // MARK: - Computed properties
     var navigationTitle: String {
@@ -80,10 +84,16 @@ struct GeneSearchView: View {
             VStack {
                 if !searchText.wrappedValue.isEmpty {
                     List(filteredList) { currentGene in
-                        NavigationLink {
-                            GeneDetailView(gene: currentGene, category: category)
-                        } label: {
-                            GeneRowView(gene: currentGene, category: category)
+                        HStack {
+                            NavigationLink {
+                                GeneDetailView(gene: currentGene, category: category)
+                            } label: {
+                                GeneRowView(gene: currentGene, category: category)
+                            }
+                            
+                            Spacer()
+                            
+                            BookmarkButton(gene: currentGene)
                         }
                     }
                 } else {
@@ -103,6 +113,21 @@ struct GeneSearchView: View {
             .navigationTitle(navigationTitle)
             .tint(category.color)
             .searchable(text: searchText, prompt: "Search a \(categoryName)")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingFavorites = true
+                    } label: {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 14))
+                            .fontWeight(.bold)
+                    }
+                    .tint(.white)
+                }
+            }
+            .sheet(isPresented: $showingFavorites) {
+                FavoritesView()
+            }
             .onChange(of: searchText.wrappedValue) { oldValue, newValue in
                 if let suggestion = viewModel.checkForWrongCategory(searchText: newValue, currentCategory: category) {
                     suggestedCategory = suggestion
@@ -137,28 +162,73 @@ struct GeneRowView: View {
             case .gene:
                 Text(gene.name)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(SearchCategory.gene.color)
                 Text(gene.protein)
                     .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(SearchCategory.protein.color.opacity(0.8))
             case .protein:
                 Text(gene.protein)
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(SearchCategory.protein.color)
                 Text(gene.name)
                     .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(SearchCategory.gene.color.opacity(0.8))
             case .function:
                 Text(gene.function)
                     .font(.headline)
                     .lineLimit(1)
-                    .foregroundColor(.white)
+                    .foregroundColor(SearchCategory.function.color)
                 Text(gene.name)
                     .font(.subheadline)
-                    .foregroundColor(.white.opacity(0.8))
+                    .foregroundColor(SearchCategory.gene.color.opacity(0.8))
             case .none:
                 EmptyView()
             }
+        }
+    }
+}
+
+struct BookmarkButton: View {
+    let gene: Gene
+    @Environment(\.modelContext) private var modelContext
+    @Query private var favorites: [Favorite]
+    
+    var isFavorite: Bool {
+        for favorite in favorites {
+            if favorite.geneName == gene.name {
+                return true
+            }
+        }
+        return false
+    }
+    
+    var body: some View {
+        Button {
+            toggleFavorite()
+        } label: {
+            Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+                .foregroundColor(SearchCategory.gene.color)
+                .font(.system(size: 18))
+        }
+        .buttonStyle(.plain)
+    }
+    
+    private func toggleFavorite() {
+        if isFavorite {
+            // Remove from favorites
+            for favorite in favorites {
+                if favorite.geneName == gene.name {
+                    modelContext.delete(favorite)
+                }
+            }
+        } else {
+            // Add to favorites
+            let newFavorite = Favorite(
+                geneName: gene.name,
+                proteinName: gene.protein,
+                function: gene.function
+            )
+            modelContext.insert(newFavorite)
         }
     }
 }
